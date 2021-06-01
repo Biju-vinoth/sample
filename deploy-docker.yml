@@ -1,0 +1,13 @@
+---
+  - hosts: 10.87.3.47
+    become: true
+    tasks:
+
+    - name: stop previous version docker
+      shell: docker stop HCL-test
+    - name: remove stopped container
+      shell: docker rm -f HCL-test
+    - name: remove docker images
+      shell: docker image rm -f bijuvinoth/sample:latest
+    - name: create docker image
+      shell: docker run -d --name HCL-test -p 8080:8080 bijuvinoth/sample:latest
